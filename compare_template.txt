@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <style>
+            img {
+                height: 80px;
+            }
+            .imglist {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            div {
+                margin: 5px;
+            }
+            .badge1 {
+                border: 1px solid black;
+                background-color: lightgreen;
+                color: black;
+                border-radius: 5px;
+                font-size: small;
+                padding: 1px;
+                position: absolute;
+                bottom: 3px;
+                left: 3px;
+            }
+            .badge2 {
+                border: 1px solid black;
+                background-color: lightgreen;
+                color: black;
+                border-radius: 5px;
+                font-size: small;
+                padding: 1px;
+                position: absolute;
+                bottom: 3px;
+                left: 20px;
+            }
+            .inactive {
+                background-color: red;
+            }
+            .ie {
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="imglist">
