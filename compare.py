@@ -73,10 +73,7 @@ def main(year):
         findings.append(finding)
 
     findings.sort()
-    for finding in findings:
-        if not finding.isOk():
-            print(finding)
-    print(*findings, sep='\n')
+    #print(*findings, sep='\n')
     createReport(findings)
 
 def diskPhotoList(albumBasePath):
@@ -100,8 +97,10 @@ def createReport(findings):
     f = open('report.html', 'w')
     f.write(open('compare_template.txt', 'r').read())
     for finding in findings:
-        f.write('<div class="ie"><img src="' + finding.path + '" /><span class="badge1"></span> <span class="badge2 inactive">⌾</span></div>')
-    f.write('        </div></body></html>')
+        if not finding.isOk():
+            f.write(''.join(['<tr><td><img src="', finding.path, '" /></td><td>', finding.name, '</td>',
+                '<td>in iCloud: ', str(finding.picICloud), ' in disk: ', str(finding.picDisk), '</td></tr>']))
+    f.write('</table></body></html>')
     f.close()
 
 if __name__ == "__main__":
