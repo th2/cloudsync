@@ -60,7 +60,7 @@ def main(year):
         
     for pic in diskPhotos:
         finding = Finding(
-                pic[20:],
+                pic[21:],
                 pic,
                 False,
                 False,
@@ -98,8 +98,15 @@ def createReport(findings):
     f.write(open('compare_template.txt', 'r').read())
     for finding in findings:
         if not finding.isOk():
-            f.write(''.join(['<tr><td><img src="', finding.path, '" /></td><td>', finding.name, '</td>',
-                '<td>in iCloud: ', str(finding.picICloud), ' in disk: ', str(finding.picDisk), '</td></tr>']))
+            f.write(''.join(['<tr><td><img src="', finding.path, '" /></td>', 
+                '<td>', finding.name, '</td>',
+                '<td ', ('class="livephoto"' if finding.isLive else ''), '></td>',
+                '<td>', 
+                '<span class="icloud ', ('active' if finding.picICloud else 'inactive'), '"></span>',
+                (('<span class="livephotovideo active"></span>' if finding.vidICloud else '<span class="livephotovideo inactive"></span>') if finding.isLive else ''),
+                '<span class="disk ', ('active' if finding.picDisk else 'inactive'), '"></span>',
+                (('<span class="livephotovideo active"></span>' if finding.vidDisk else '<span class="livephotovideo inactive"></span>') if finding.isLive else ''),
+                '</td></tr>']))
     f.write('</table></body></html>')
     f.close()
 
