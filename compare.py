@@ -1,6 +1,7 @@
 import datetime
 import os.path
 import osxphotos
+import unicodedata
 
 from os import path
 from os import listdir
@@ -80,7 +81,8 @@ def diskPhotoList(albumBasePath):
     diskPhotos = []
     albums = [join(albumBasePath, album) for album in listdir(albumBasePath) if album != '.DS_Store']
     for album in albums:
-        diskPhotos += [join(album, f.lower()) for f in listdir(album) if f != '.DS_Store']
+        albumNormalized = unicodedata.normalize('NFC', album)
+        diskPhotos += [join(albumNormalized, unicodedata.normalize('NFC', f.lower())) for f in listdir(album) if f != '.DS_Store']
     return diskPhotos
 
 def iCloudPhotoList(year):
