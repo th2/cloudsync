@@ -50,12 +50,18 @@ def main(year):
                 True,
                 path in diskPhotos,
                 p.live_photo,
-                p.live_photo and path.replace('.heic', '.mov') in diskPhotos
+                p.live_photo and (path.replace('.heic', '.mov') in diskPhotos)
             )
             if finding.picDisk:
                 diskPhotos.remove(path)
             if finding.vidDisk:
-                diskPhotos.remove(path.replace('.heic', '.mov'))
+                if path.replace('.heic', '.mov') in diskPhotos:
+                    diskPhotos.remove(path.replace('.heic', '.mov'))
+                else:
+                    if path.replace('.jpg', '.mov') in diskPhotos:
+                        diskPhotos.remove(path.replace('.jpg', '.mov'))
+                    else:
+                        print('consistency error: ' + path.replace('.heic', '.mov'))
             findings.append(finding)
             #print('[path:' + p.path + ']')
         
